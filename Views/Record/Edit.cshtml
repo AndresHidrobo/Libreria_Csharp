@@ -1,0 +1,47 @@
+@model Libreria.Models.Record
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Editar Préstamo";
+}
+
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h2 class="mb-1">Editar Préstamo</h2>
+        <p class="text-muted mb-0">Actualiza la información del préstamo seleccionado.</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+</div>
+
+<div class="row">
+    <div class="col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    @Html.AntiForgeryToken()
+                    <input asp-for="Id" type="hidden" />
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div asp-validation-summary="All" class="alert alert-danger"></div>
+                    }
+
+                    <div class="mb-3">
+                        <label asp-for="UserId" class="form-label">Usuario</label>
+                        <select asp-for="UserId" asp-items="ViewBag.Users" class="form-select"></select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="BookId" class="form-label">Libro</label>
+                        <select asp-for="BookId" asp-items="ViewBag.Books" class="form-select"></select>
+                    </div>
+                    
+                    <input asp-for="IsActive" type="hidden" />
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-warning">Actualizar</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

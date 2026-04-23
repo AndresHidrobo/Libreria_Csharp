@@ -1,0 +1,70 @@
+@model IEnumerable<Libreria.Models.User>
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h2 class="mb-1">Usuarios</h2>
+        <p class="text-muted mb-0">Administra los usuarios registrados en el sistema.</p>
+    </div>
+    <a asp-action="Create" asp-controller="User" class="btn btn-primary">Crear nuevo usuario</a>
+</div>
+
+@if (TempData["Message"] != null )
+{
+    if (TempData["Success"] is true)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            @TempData["Message"]
+        </div>
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-hover align-middle mb-0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NOMBRES</th>
+                            <th>CORREO</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.Id</td>
+                                <td>@user.Name</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    <form asp-action="Destroy" asp-controller="User" asp-route-id="@user.Id" method="post" class="d-flex gap-2">
+                                        @Html.AntiForgeryToken()
+                                        <a asp-action="Show" asp-controller="User" asp-route-id="@user.Id"
+                                           class="btn btn-sm btn-info">Detalles</a>
+                                        <a asp-action="Edit" asp-controller="User" asp-route-id="@user.Id"
+                                           class="btn btn-sm btn-warning">Editar</a>
+                                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

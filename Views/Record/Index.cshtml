@@ -1,0 +1,76 @@
+@model IEnumerable<Libreria.Models.Record>
+@{
+    ViewData["Title"] = "Préstamos";
+}
+
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h2 class="mb-1">Préstamos</h2>
+        <p class="text-muted mb-0">Administra los préstamos de libros registrados en el sistema.</p>
+    </div>
+    <a asp-action="Create" asp-controller="Record" class="btn btn-primary">Crear nuevo préstamo</a>
+</div>
+
+@if (TempData["Message"] != null )
+{
+    if (TempData["Success"] is true)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            @TempData["Message"]
+        </div>
+    }
+}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped table-hover align-middle mb-0">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>USUARIO</th>
+                    <th>LIBRO</th>
+                    <th>FECHA</th>
+                    <th>ESTADO</th>
+                    <th>ACCIONES</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var record in Model)
+                {
+                    <tr>
+                        <td>@record.Id</td>
+                        <td>@(record.User?.Name ?? $"Usuario #{record.UserId}")</td>
+                        <td>@(record.Book?.Title ?? $"Libro #{record.BookId}")</td>
+                        <td>@record.CreatedAt.ToString("yyyy-MM-dd")</td>
+                        <td>@(record.IsActive ? "Activo" : "Finalizado")</td>
+                        <td>
+                            <form asp-action="Destroy" asp-controller="Record" asp-route-id="@record.Id" method="post" class="d-flex gap-2 flex-wrap">
+                                @Html.AntiForgeryToken()
+                                <a asp-action="Show" asp-controller="Record" asp-route-id="@record.Id" class="btn btn-sm btn-info">Detalles</a>
+                                <a asp-action="Edit" asp-controller="Record" asp-route-id="@record.Id" class="btn btn-sm btn-warning">Editar</a>
+                                @if (record.IsActive)
+                                {
+                                    <button type="submit"
+                                            formaction="@Url.Action("FinishLoan", "Record", new { id = record.Id })"
+                                            formmethod="post"
+                                            class="btn btn-sm btn-success">
+                                        Préstamo finalizado
+                                    </button>
+                                }
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

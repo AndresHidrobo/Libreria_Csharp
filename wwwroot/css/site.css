@@ -1,0 +1,69 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background: #f4f7fb;
+  margin-bottom: 60px;
+}
+
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.hero-panel {
+  background: linear-gradient(135deg, #123c69, #2d6a8d);
+  color: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1rem 2rem rgba(18, 60, 105, 0.15);
+}
+
+.card {
+  border: 0;
+  border-radius: 1rem;
+}
+
+.table thead th {
+  border-bottom: 0;
+  color: #52606d;
+  font-size: 0.8rem;
+}
+
+.alert {
+  border-radius: 0.8rem;
+}
+
+.btn {
+  border-radius: 0.7rem;
+}
+
+.form-control,
+.form-select {
+  border-radius: 0.7rem;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
