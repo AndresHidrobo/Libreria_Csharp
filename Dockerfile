@@ -23,4 +23,4 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 EXPOSE 8080
 
 # Comando de inicio
-ENTRYPOINT ["dotnet", "ProyectoDespliegue.dll"]
+ENTRYPOINT ["dotnet", "Libreria.dll"]
